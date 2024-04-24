@@ -15,6 +15,7 @@ SECRET_KEY = env.str("SECRET_KEY")
 DEBUG = env.bool("DEBUG", default=False)
 ALLOWED_HOSTS = env.str("ALLOWED_HOSTS", default="").split(" ")
 
+
 # base
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -31,6 +32,7 @@ INSTALLED_APPS += [
     "django_filters",
     "corsheaders",
     "djoser",
+    "phonenumber_field",
 ]
 
 # apps
@@ -38,6 +40,7 @@ INSTALLED_APPS += [
     "api",
     "common",
     "breaks",
+    "users.apps.UsersConfig",
 ]
 
 # after apps
@@ -175,6 +178,9 @@ SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_REQUEST": True,
     "SORT_OPERATIONS": False,
 }
+
+AUTH_USER_MODEL = "users.User"
+AUTHENTICATION_BACKENDS = ("users.backends.AuthBackend",)
 
 #######################
 # DJOSER
