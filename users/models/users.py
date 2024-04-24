@@ -1,8 +1,11 @@
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
-from users.models.managers import CustomUserManager
+from users.managers import CustomUserManager
+from .profile import Profile
 
 
 class User(AbstractUser):
@@ -26,3 +29,9 @@ class User(AbstractUser):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+@receiver(post_save, sender=User)
+def post_save_user(sender, instance, created, **kwargs):
+    if not hasattr(instance, "profile"):
+        Profile.objects.create(user=instance)

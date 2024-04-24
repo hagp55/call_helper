@@ -3,7 +3,7 @@
 import django.contrib.auth.validators
 import django.utils.timezone
 import phonenumber_field.modelfields
-import users.models.managers
+import users.managers
 from django.db import migrations, models
 
 
@@ -136,7 +136,7 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "Пользователи",
             },
             managers=[
-                ("objects", users.models.managers.CustomUserManager()),
+                ("objects", users.managers.CustomUserManager()),
             ],
         ),
     ]
